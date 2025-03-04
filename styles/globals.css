@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.clip-corner {
+    clip-path: circle(40% at 0% 0%);
+}
