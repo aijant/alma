@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-### How to login for see second task
+### How to login for see tasks(first task is form nav)
 username = admin 
 password = 1234
 
