@@ -19,8 +19,8 @@ password = 1234
 
 ### Technologies Used
 
-# Frontend: Next.js (React), TypeScript, Tailwind CSS, Framer Motion
-# Component Library: @heroui/react
-# State Management: React Hooks, Context API
-# Authentication: Custom AuthContext
-# Version Control: Git & GitHub
+##### Frontend: Next.js (React), TypeScript, Tailwind CSS, Framer Motion
+##### Component Library: @heroui/react
+##### State Management: React Hooks, Context API
+##### Authentication: Custom AuthContext
+##### Version Control: Git & GitHub
