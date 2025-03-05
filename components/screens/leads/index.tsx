@@ -75,12 +75,12 @@ const initialLeadsData: Lead[] = [
 
 export default function LeadsTable() {
   const { isAuthenticated } = useAuth();
-  if (!isAuthenticated) return <Login />;
-
   const [leads, setLeads] = useState<Lead[]>(initialLeadsData);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  if (!isAuthenticated) return <Login />;
   const leadsPerPage = 5;
 
   const updateStatus = (id: number) => {

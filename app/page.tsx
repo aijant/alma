@@ -1,15 +1,13 @@
-
 import { NextPage } from "next";
 
-import MainContent from "@/components/screens/main";
-import LeadsTable from "@/components/screens/leads";
+import PageForm from "./form/page";
+import PageLeads from "./leads/page";
 import { AuthProvider } from "@/app/authContext";
 
 const PageMain: NextPage = () => {
-  
   return (
     <AuthProvider>
-      <MainContent />
+      <PageLeads />
     </AuthProvider>
   );
 };
