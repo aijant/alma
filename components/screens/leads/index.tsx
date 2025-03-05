@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavigationMenu from "./navigationMenu";
 import { useAuth } from "@/app/authContext";
 import Login from "@/components/login";
@@ -21,67 +21,32 @@ interface Lead {
   country: string;
 }
 
-const initialLeadsData: Lead[] = [
-  {
-    id: 1,
-    name: "Jorge Ruiz",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Mexico",
-  },
-  {
-    id: 2,
-    name: "Bahar Zamir",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Mexico",
-  },
-  {
-    id: 3,
-    name: "Mary Lopez",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Brazil",
-  },
-  {
-    id: 4,
-    name: "Li Zijin",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "South Korea",
-  },
-  {
-    id: 5,
-    name: "Mark Antonov",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Russia",
-  },
-  {
-    id: 52,
-    name: "Test Antonov",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Russia",
-  },
-  {
-    id: 45,
-    name: "Mark Twin",
-    submitted: "02/02/2024, 2:45 PM",
-    status: "Pending",
-    country: "Russia",
-  },
-];
-
 export default function LeadsTable() {
-  const { isAuthenticated } = useAuth();
-  const [leads, setLeads] = useState<Lead[]>(initialLeadsData);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  if (!isAuthenticated) return <Login />;
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const { isAuthenticated } = useAuth();
   const leadsPerPage = 5;
+
+  useEffect(() => {
+    const fetchLeads = async () => {
+      try {
+        const response = await fetch("/api/leads");
+        if (!response.ok) throw new Error("Failed to fetch leads");
+        const data = await response.json();
+        setLeads(data);
+      } catch (err) {
+        setError("Error fetching leads");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeads();
+  }, []);
 
   const updateStatus = (id: number) => {
     setLeads((prevLeads) =>
@@ -105,6 +70,13 @@ export default function LeadsTable() {
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
   const currentLeads = filteredLeads.slice(indexOfFirstLead, indexOfLastLead);
+
+  if (!isAuthenticated) {
+    return <Login />;
+  }
+
+  if (loading) return <p>Loading leads...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="flex h-screen">
@@ -182,9 +154,8 @@ export default function LeadsTable() {
           </Button>
           {[...Array(totalPages)].map((_, index) => (
             <Button
-              variant="light"
-              className="min-w-5"
               key={index + 1}
+              className="min-w-5"
               variant={currentPage === index + 1 ? "solid" : "bordered"}
               onClick={() => setCurrentPage(index + 1)}
             >
