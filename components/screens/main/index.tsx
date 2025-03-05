@@ -148,9 +148,9 @@ const MainContent = () => {
               </p>
 
               <Textarea
-                label="How can we help you?"
+                label="Additional Information"
                 name="message"
-                placeholder="Describe your situation..."
+                placeholder="Additional Information"
               />
 
               <Button

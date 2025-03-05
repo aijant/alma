@@ -5,7 +5,7 @@ import MainContent from "@/components/screens/main";
 import LeadsTable from "@/components/screens/leads";
 import { AuthProvider } from "@/app/authContext";
 
-const PageMain: NextPage = async () => {
+const PageMain: NextPage = () => {
   
   return (
     <AuthProvider>
