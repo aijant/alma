@@ -4,6 +4,12 @@
 https://alma-plum.vercel.app/
 ```
 
+### How to login for see tasks(first task is form nav)
+
+username = admin 
+password = 1234
+
+
 ### Install dependencies
 
 You can use  `npm`
@@ -17,10 +23,6 @@ npm install
 ```bash
 npm run dev
 ```
-
-### How to login for see tasks(first task is form nav)
-username = admin 
-password = 1234
 
 ### Technologies Used
 
