@@ -6,7 +6,7 @@ import AlmaIcon from "@/components/ui/icons/alma";
 import Link from "next/link";
 
 const NavigationMenu = () => {
-  const [active, setActive] = useState<"Leads" | "Settings">("Leads");
+  const [active, setActive] = useState<"leads" | "form">("leads"); // Fixed type
 
   return (
     <div className="w-64 h-screen bg-gray-100 flex flex-col justify-between relative">
@@ -23,7 +23,7 @@ const NavigationMenu = () => {
                     className={`w-full justify-start ${active === section ? "font-bold" : ""}`}
                     onClick={() => setActive(section)}
                   >
-                    {section}
+                    {section.charAt(0).toUpperCase() + section.slice(1)}
                   </Button>
                 </Link>
               </li>
